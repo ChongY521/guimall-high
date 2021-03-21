@@ -1,0 +1,9 @@
+# 缓存公共配置
+spring:
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      # key-prefix: CACHE_  # 默认为 分区名
+      use-key-prefix: true
+      cache-null-values: true # 是否缓存空值 ，防止缓存穿透

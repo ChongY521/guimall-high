@@ -1,0 +1,53 @@
+server:
+  port: 13000
+
+spring:
+  application:
+    name: gulimall-server-doc
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+      #          enabled: true
+      x-forwarded:
+        prefix-append: false  # 不拼接前缀
+      routes:
+        - id: gulimall_ware_router
+          uri: lb://gulimall-member
+          predicates:
+            - Path=/ware/**
+          filters:
+            - StripPrefix=1
+        # 用户服务路由
+        - id: gulimall_member_router
+          uri: lb://gulimall-member
+          predicates:
+            - Path=/member/**
+          filters:
+            - StripPrefix=1
+        # 三方服务路由
+        - id: gulimall_thirdparty_router
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/thirdparty/**
+          filters:
+            - StripPrefix=1
+        # 商品服务路由
+        - id: gulimall_product_router_api
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/product/**
+          filters:
+            - StripPrefix=1
+        # 人人路由
+        - id: renren_fast_router
+          uri: lb://renren-fast
+          predicates:
+            - Path=/renren-fast/**
+          filters:
+            - StripPrefix=1
+

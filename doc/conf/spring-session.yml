@@ -1,0 +1,7 @@
+# spring-session 配置
+spring:
+  session:
+    store-type: redis  # session 存储的类型
+    redis:
+      flush-mode: on_save
+      namespace: spring:session

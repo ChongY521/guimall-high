@@ -1,0 +1,5 @@
+gulimall:
+  thread:
+    core-size: 5
+    max-size: 30
+    keep-alive-time: 20

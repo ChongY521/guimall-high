@@ -1,0 +1,2 @@
+# 商品上架
+PUT http://127.0.0.1:88/api/product/spuinfo/11/up

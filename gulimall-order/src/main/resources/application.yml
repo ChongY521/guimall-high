@@ -1,0 +1,41 @@
+server:
+  port: 14000
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.97.224.239:3306/gulimall_oms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+
+  redis:
+#    url: 39.97.224.239
+    password: redis
+    port: 6379
+    host: 39.97.224.239
+
+  rabbitmq:
+    host: 39.97.224.239
+    virtual-host: /
+    username: guest
+    password: guest
+#    publisher-confirms: true  发送端确认模式
+    publisher-confirm-type: correlated
+#    发送端消息抵达队列 的确认
+    publisher-returns: true
+    template:
+      mandatory: true     #只要抵达队列，以异步发送优先回调我们这个 publisher-returns 回调
+    listener:
+      direct:
+        acknowledge-mode: manual
+  thymeleaf:
+    cache: false
+  session:
+    store-type: redis
+#
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    banner: true
+
+

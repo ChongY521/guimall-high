@@ -1,0 +1,75 @@
+server:
+  port: 88
+spring:
+  application:
+    name: gulimall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: gulimall_ware_router
+          uri: lb://gulimall-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        # 用户服务路由
+        - id: gulimall_member_router
+          uri: lb://gulimall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        # 三方服务路由
+        - id: gulimall_thirdparty_router
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        # 商品服务路由
+        - id: gulimall_product_api_router
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        # 人人路由
+        - id: renren_fast_router
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+      # 搜索 服务 路由
+        - id: gulimall_search_router
+          uri: lb://gulimall-search
+          predicates:
+            - Host=search.gulimall.com
+#          认证路由
+        - id: gulimall_search_router
+          uri: lb://gulimall-auth
+          predicates:
+            - Host=auth.gulimall.com
+        - id: gulimall_cart_router
+          uri: lb://gulimall-cart
+          predicates:
+            - Host=cart.gulimall.com
+        # 商品服务路由
+        - id: gulimall_host_router
+          uri: lb://gulimall-product
+          predicates:
+            - Host=gulimall.com,www.gulimall.com,item.gulimall.com
+
+# 笔记  如果网关处重写 路径 会影响 文档的生成
+# 目前可以  重新写一份
+# 后面可以搭配nginx  吧api 取消
+#  location /api {        //匹配url中带有api的，并转发到http://localhost:8080/api
+#  rewrite  ^/api/(.*)$ /$1 break;         //利用正则进行匹配#去掉api前缀，$1是正则中的第一串,这样后端的接口也不需要带api了
+#  proxy_pass http://localhost:8080;      //转发的参数设定
+# 也可以 在vue 中去掉前缀
+#  pathRewrite: {
+#    //'^/api/': '' //将访问路径的/api/替换成’‘，后台服务不用加api了,但前端的请求地址还是要加/api/
+#  }

@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: gulimall-product
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+#        namespace: 00fc399d-c92a-4672-aa31-0e54d2baebb1
+#        file-extension: yaml
+#        group: dev
+#        ext-config:
+#          - refresh: true
+#            data-id: redis.yaml
+#          - data-id: druid-datasource.properties
+#            group: dev
+#            refresh: true
+#          - data-id: mybatis-plus.yaml
+#            group: dev
+#            refresh: true
+
+
+#          - data-id: spring-cache.yaml
+#            group: dev
+#            refresh: true
+#          - data-id: spring-session.yaml
+#            group: dev
+#            refresh: true
+#          - data-id: gulimall-thread-pool.yaml
+#            group: dev
+#            refresh: true
+
+
+
+

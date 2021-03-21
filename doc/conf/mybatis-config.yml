@@ -1,0 +1,10 @@
+# mybatis 的公共配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    banner: true
+    db-config:
+      id-type: auto
+      # 1、 全局逻辑删除 配置  2、配置逻辑删除组件（看官方文档） 3、字段加 逻辑删除 注解
+      logic-delete-value: 1 #  1 表示已被删除
+      logic-not-delete-value: 0 # 0 为未被删除
